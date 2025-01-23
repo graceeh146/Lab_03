@@ -18,18 +18,24 @@ nobel <- read_csv("data/nobel.csv")
 ## Exercises
 
 ### Exercise 1
+Nobel has 935 observations and 26 variables.Each row presents a Nobel laureate such as names, the year they won,biographical information, and etc.
 
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
+```{r}
+nrow(nobel)#the number of rows (observations)
+ncol(nobel)#the number of columns (variables)
+```
 
 ### Exercise 2
 
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
+```{r}
+nobel_living <- nobel %>%
+  filter(!is.na(country),#laureates for whom country is available
+  gender != "org", #exclude organizations
+  is.na (died_date))# still live people
+
+#check the number of observations
+nrow(nobel_living)
+```
 
 ### Exercise 3
 
