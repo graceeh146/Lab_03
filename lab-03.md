@@ -49,17 +49,83 @@ nrow(nobel_living)
 
 ### Exercise 3
 
-Remove this text, and add your answer for Exercise 1 here. Add code
-chunks as needed. Don’t forget to label your code chunk. Do not use
-spaces in code chunk labels.
+According to the plot, the Buzzfeed headline is supported by the data
+because the US bars are significantly taller across all categories.
+
+``` r
+#Identify whether the laureate was in the USA
+nobel_living <- nobel_living %>%
+  mutate(
+    country_us = if_else(country == "USA", "USA", "Other")
+  ) 
+
+#limit the analysis to some categories
+nobel_living_science <- nobel_living %>%
+  filter(category %in% c("Physics", "Medicine", "Chemistry", "Economics"))
+```
+
+``` r
+library(ggplot2)
+
+#create the faceted bar plot
+ggplot(nobel_living_science, aes(x = country_us, fill = country_us )) + 
+  geom_bar() +
+  facet_wrap (~ category) + #creates separate facets for each category
+  coord_flip() + #flips the bars horizontally
+  labs(
+  title = "Nobel Laureates by Prize Category and Location",
+  x = "Location",
+  y = "Number",
+  fill = "Location" )
+```
+
+![](lab-03_files/figure-gfm/bar_plot-1.png)<!-- -->
 
 ### Exercise 4
 
-…
+105 winners are born in the US.
+
+``` r
+#Create a new variable called born_country_us
+nobel_living_science <- nobel_living_science %>%
+  mutate(
+    born_country_us = if_else(born_country == "USA", "USA", "Other")
+  ) 
+
+#Count the number of winners born in the US
+us_born_number <- nobel_living_science %>%
+  filter(born_country_us == "USA") %>%
+  summarise(count = n())
+
+us_born_number
+```
+
+    ## # A tibble: 1 × 1
+    ##   count
+    ##   <int>
+    ## 1   105
 
 ### Exercise 5
 
-…
+It supports Buzzfeed’s claim because the “USA” bars are longer than
+“Others” in most facets, excluding Chemistry ore
+
+``` r
+library(ggplot2)
+
+#create the faceted bar plot
+ggplot(nobel_living_science, aes(x = country_us, fill = born_country_us )) + 
+  geom_bar(position = "stack") +
+  facet_wrap (~ category) + #creates separate facets for each category
+  coord_flip() + #flips the bars horizontally
+  labs(
+  title = "Nobel Laureates by Prize Category, win_prize_place, and birthplace",
+  x = "Location",
+  y = "Number",
+  fill = "Born in" )
+```
+
+![](lab-03_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 ### Exercise 6
 
