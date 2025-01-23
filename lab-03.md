@@ -129,4 +129,31 @@ ggplot(nobel_living_science, aes(x = country_us, fill = born_country_us )) +
 
 ### Exercise 6
 
-…
+Germany and UK are the most common.
+
+``` r
+library (dplyr)
+
+# Create the frequency table
+born_outside_us <- nobel_living_science %>%
+  filter(country_us == "USA", born_country_us == "Other") %>%  # Filter for laureates who won in the US but were born outside the US
+  count(born_country) %>% #create the frequency table
+  arrange(desc (n))# arrange the data frame in descending order
+
+born_outside_us
+```
+
+    ## # A tibble: 21 × 2
+    ##    born_country       n
+    ##    <chr>          <int>
+    ##  1 Germany            7
+    ##  2 United Kingdom     7
+    ##  3 China              5
+    ##  4 Canada             4
+    ##  5 Japan              3
+    ##  6 Australia          2
+    ##  7 Israel             2
+    ##  8 Norway             2
+    ##  9 Austria            1
+    ## 10 Finland            1
+    ## # ℹ 11 more rows
