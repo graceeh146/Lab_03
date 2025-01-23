@@ -1,7 +1,7 @@
 Lab 03 - Nobel laureates
 ================
-Insert your name here
-Insert date here
+Enhui Wang
+2025.1.23
 
 ### Load packages and data
 
