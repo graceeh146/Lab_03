@@ -17,8 +17,8 @@ nobel <- read_csv("data/nobel.csv")
 
 ### Exercise 1
 
-Nobel has 935 observations and 26 variables.Each row presents a Nobel
-laureate such as names, the year they won,biographical information, and
+Nobel has 935 observations and 26 variables. Each row presents a Nobel
+laureate, such as name, the year they won, biographical information,
 etc.
 
 ``` r
@@ -53,7 +53,7 @@ According to the plot, the Buzzfeed headline is supported by the data
 because the US bars are significantly taller across all categories.
 
 ``` r
-#Identify whether the laureate was in the USA
+#identify whether the laureate was in the USA
 nobel_living <- nobel_living %>%
   mutate(
     country_us = if_else(country == "USA", "USA", "Other")
@@ -86,13 +86,13 @@ ggplot(nobel_living_science, aes(x = country_us, fill = country_us )) +
 105 winners are born in the US.
 
 ``` r
-#Create a new variable called born_country_us
+#create a new variable called born_country_us
 nobel_living_science <- nobel_living_science %>%
   mutate(
     born_country_us = if_else(born_country == "USA", "USA", "Other")
   ) 
 
-#Count the number of winners born in the US
+#count the number of winners born in the US
 us_born_number <- nobel_living_science %>%
   filter(born_country_us == "USA") %>%
   summarise(count = n())
@@ -108,7 +108,7 @@ us_born_number
 ### Exercise 5
 
 It supports Buzzfeed’s claim because the “USA” bars are longer than
-“Others” in most facets, excluding Chemistry ore
+“Others” in most facets, excluding Chemistry.
 
 ``` r
 library(ggplot2)
@@ -136,7 +136,7 @@ library (dplyr)
 
 # Create the frequency table
 born_outside_us <- nobel_living_science %>%
-  filter(country_us == "USA", born_country_us == "Other") %>%  # Filter for laureates who won in the US but were born outside the US
+  filter(country_us == "USA", born_country_us == "Other") %>%  # filter for laureates who won in the US but were born outside the US
   count(born_country) %>% #create the frequency table
   arrange(desc (n))# arrange the data frame in descending order
 
